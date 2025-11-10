@@ -1,17 +1,19 @@
-import { useRouter } from "next/router";
+"use client";
+import { useParams } from "next/navigation";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "@/components/common/Card";
 
 export default function PropertyDetailPage() {
-  const router = useRouter();
-  const { id } = router.query;
-  const [property, setProperty] = useState(null);
+  const params = useParams();
+  const id = params?.id;
+  const [property, setProperty] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!id) return;
+
     const fetchProperty = async () => {
-      if (!id) return;
       try {
         const response = await axios.get(`/api/properties/${id}`);
         setProperty(response.data);
@@ -25,13 +27,14 @@ export default function PropertyDetailPage() {
     fetchProperty();
   }, [id]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (!property) return <p>Property not found</p>;
 
-  if (!property) {
-    return <p>Property not found</p>;
-  }
-
-  return <Card description={property.description} title={property.title} image={property.image} />;
+  return (
+    <Card
+      description={property.description}
+      title={property.title}
+      image={property.image}
+    />
+  );
 }
