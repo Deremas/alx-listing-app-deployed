@@ -5,8 +5,15 @@ interface ReviewSectionProps {
   propertyId: string;
 }
 
+interface Review {
+  id: string;
+  comment: string;
+  // add other fields like author, rating, etc. if they exist
+}
+
+
 const ReviewSection = ({ propertyId }: ReviewSectionProps) => {
-  const [reviews, setReviews] = useState([]);
+const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
