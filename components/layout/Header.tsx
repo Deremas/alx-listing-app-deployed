@@ -6,7 +6,6 @@ import React from "react";
 const Header: React.FC = () => {
   return (
     <>
-      import {FaHotel} from "react-icons/fa";
       <nav className="bg-[#34967C] text-white flex items-center justify-between gap-4 px-4 py-3">
         {/* Icon */}
         <span className="flex-shrink-0">
