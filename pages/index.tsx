@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
-// import { PLACEHOLDER_IMAGE } from "@/constants";
+
+interface Property {
+  id?: string;
+  title: string;
+  description: string;
+  image: string;
+}
 
 export default function Home() {
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,7 +43,7 @@ export default function Home() {
       <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {properties.map((property, idx) => (
           <Card
-            key={idx}
+            key={property.id ?? idx}
             title={property.title}
             description={property.description}
             image={property.image}
